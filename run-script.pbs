@@ -1,0 +1,24 @@
+#!/bin/bash
+
+
+#PBS -l procs=16
+#PBS -l walltime=240:00:00
+#PBS -q batch
+#PBS -N [name of library prefix]
+
+# Loading Autodock-vina package
+module load tools/autdock-vina-1.1.2
+# Loading openbabel package for conversion
+module load tools/openbabel-2.3.2
+cd $PBS_O_WORKDIR
+
+# Calculation
+
+# converting the splitted disjoint of the library to the multimodel pdbqt file
+obabel -isdf asinex0.sdf -opdbqt -Oasinex0.pdbqt
+
+# Splitting multimodel pdbqt file to individual pdbqt file as implemented in vina
+vina_split --input asinex0.pdbqt
+
+# Running vina for virtual screening
+bash ./vina.sh > test.log
