@@ -1,2 +1,2 @@
 # VSVina
-Useful codes for Virtual Srreening with Vina
+Useful codes for Virtual Screening with Vina
